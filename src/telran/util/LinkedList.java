@@ -184,28 +184,41 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return false;
+		int sizeOld = size;
+		Node<T> curNode = tail;
+		
+		for (int index= size-1; index>=0; index--) {
+			if(predicate.test(curNode.obj)) {
+				remove(index);
+			} 
+			curNode=curNode.prev;
+		}
+		return sizeOld > size;
 	}
 
 	@Override
 	public void sort(Comparator<T> comp) {
-		T[] array = listToArray();
+		T array[] = listToArray();
 		Arrays.sort(array, comp);
 		fillListFromArray(array);
 		
 
 	}
 	private T[] listToArray() {
-		//TODO
-		//creates array of T objects
-		//passes over whole list and fills the array
-		//sorting filled array
-		return null;
+		T array[] = (T[]) new Object[size];
+		int index=0;
+		while(index<size) {
+			array[index] = get(index);
+			index=index+1;
+		}
+		return array;
 	}
-	private void fillListFromArray(T[] array) {
-		//TODO
-		//passes over whole list and fills elements from index=0 to index=size - 1 
-	}
-
+	private void fillListFromArray(T array[]) {
+		Node<T> cur = head;
+		for (int index = 0; index < array.length; index++) 
+		{
+			cur.obj=array[index];
+			cur=cur.next;
+		}
+	}	
 }
