@@ -198,14 +198,14 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public void sort(Comparator<T> comp) {
-		T array[] = listToArray();
+		T[] array = listToArray();
 		Arrays.sort(array, comp);
 		fillListFromArray(array);
 		
 
 	}
 	private T[] listToArray() {
-		T array[] = (T[]) new Object[size];
+		T[] array = (T[]) new Object[size];
 		int index=0;
 		while(index<size) {
 			array[index] = get(index);
@@ -213,7 +213,7 @@ public class LinkedList<T> implements List<T> {
 		}
 		return array;
 	}
-	private void fillListFromArray(T array[]) {
+	private void fillListFromArray(T[] array) {
 		Node<T> cur = head;
 		for (int index = 0; index < array.length; index++) 
 		{
