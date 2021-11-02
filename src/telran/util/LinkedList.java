@@ -115,20 +115,71 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+			T result = null;
+			if (!isValidIndex(index)) 	return result;
+			if(index==0) {
+					result = removHead();
+				} else if(index==(size-1)) {
+					result = removTail();
+				} else {
+					result = removMidle(index);
+				}
+				size--;
+				return result; 
+		}
 
+	private T removMidle(int index) {
+		Node<T> nodeToDel = getNode(index);
+		Node<T> nextNode = nodeToDel.next;
+		Node<T> prevNode = nodeToDel.prev;
+		nextNode.prev = nodeToDel.prev;
+		prevNode.next = nodeToDel.next;
+		return nodeToDel.obj;
+	}
+	private T removTail() {
+		T removEl = tail.obj;
+		tail = tail.prev;
+		if (tail != null) {
+			tail.next = null;
+		}
+		return removEl;
+	}
+	private T removHead() {
+		T removEl = head.obj;
+		head = head.next;
+		if (head != null) {
+			head.prev = null;
+		}
+		return removEl;
+	}
 	@Override
 	public int indexOf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return 0;
+		int ind = 0;
+		int res = -1;
+		while(ind<size) {
+			if(predicate.test(get(ind))) {
+				res = ind;
+				break;
+			}
+			ind++;
+		}
+		return res;
 	}
 
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int ind = size-1;
+		int res= -1;
+		while(ind>=0) {
+			if(predicate.test(get(ind))) {
+				res = ind;
+				break;
+			}
+			ind--;
+		}
+		return res;
 	}
 
 	@Override
