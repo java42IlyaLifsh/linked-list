@@ -22,6 +22,7 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public void add(T element) {
+		//Complexity O[1]
 		Node<T> newNode = new Node<>(element);
 		if (head == null) {
 			head = tail = newNode;
@@ -34,6 +35,7 @@ public class LinkedList<T> implements List<T> {
 
 	}
 	private Node<T> getNode(int index) {
+		//O[N]
 		Node<T> res = null;
 		if(isValidIndex(index)) {
 			res = index <= size / 2 ? getNodefromLeft(index) : getNodeFromRight(index);
@@ -65,6 +67,7 @@ public class LinkedList<T> implements List<T> {
 	}
 	@Override
 	public boolean add(int index, T element) {
+		//O[N]
 		boolean res = false;
 		if (index == size) {
 			add(element);
@@ -99,12 +102,13 @@ public class LinkedList<T> implements List<T> {
 	}
 	@Override
 	public int size() {
-
+//O[1]
 		return size;
 	}
 
 	@Override
 	public T get(int index) {
+		//O[N]
 		T res = null;
 		Node<T> resNode = getNode(index);
 		if (resNode != null) {
@@ -115,12 +119,13 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		
+		//O[N]
 		return isValidIndex(index) ? removeNode(getNode(index)) : null;
 	}
 
 	@Override
 	public int indexOf(Predicate<T> predicate) {
+		//O[N]
 		Node<T> current = head;
 		int res = -1;
 		for(int i = 0; i < size; i++) {
@@ -136,6 +141,7 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
+		//O[N]
 		int res = -1;
 		Node<T> current = tail;
 		for(int i = size - 1; i >=0; i--) {
@@ -150,6 +156,7 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
+		//O[N]
 		int oldSize = size;
 		Node<T> current = head;
 		while(current != null) {
@@ -195,6 +202,7 @@ public class LinkedList<T> implements List<T> {
 	}
 	@Override
 	public void sort(Comparator<T> comp) {
+		//O[N* LogN]
 		T[] array = listToArray();
 		Arrays.sort(array, comp);
 		fillListFromArray(array);
