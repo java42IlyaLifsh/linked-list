@@ -155,6 +155,21 @@ public class LinkedList<T> implements List<T> {
 	}
 	@Override
 	public int indexOf(Predicate<T> predicate) {
+		/* V.R.  
+		 * The following implementation does the same, but it
+		 * doesn't call get()/getNode(). getNode() is heavy operation.
+		 * It is necessary to try don't use it if it isn't necessary.
+			int result = -1;
+			Node<T> currentNode = head;
+			for (int ind =0; ind <size; ind++) {
+				if(predicate.test(currentNode.obj)) {
+					result = ind;
+					break;
+				}
+				currentNode = currentNode.next;	
+			}
+		 * 
+		 */
 		int ind = 0;
 		int res = -1;
 		while(ind<size) {
@@ -169,7 +184,7 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
-		
+		// V.R. Look at my previous remark. There is the same problem here
 		int ind = size-1;
 		int res= -1;
 		while(ind>=0) {
@@ -208,6 +223,7 @@ public class LinkedList<T> implements List<T> {
 		T[] array = (T[]) new Object[size];
 		int index=0;
 		while(index<size) {
+			// V.R. It will be much better without get()
 			array[index] = get(index);
 			index=index+1;
 		}
