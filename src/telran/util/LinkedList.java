@@ -158,6 +158,7 @@ public class LinkedList<T> implements List<T> {
 		int ind = 0;
 		int res = -1;
 		while(ind<size) {
+			//[YG] - very inefficient solution. each get(ind) triggers passing over the list
 			if(predicate.test(get(ind))) {
 				res = ind;
 				break;
@@ -173,6 +174,7 @@ public class LinkedList<T> implements List<T> {
 		int ind = size-1;
 		int res= -1;
 		while(ind>=0) {
+			//[YG] - very inefficient solution. each get(ind) triggers passing over the list
 			if(predicate.test(get(ind))) {
 				res = ind;
 				break;
@@ -189,7 +191,7 @@ public class LinkedList<T> implements List<T> {
 		
 		for (int index= size-1; index>=0; index--) {
 			if(predicate.test(curNode.obj)) {
-				remove(index);
+				remove(index); //[YG] - very inefficient solution. each remove(index) triggers passing over the list 
 			} 
 			curNode=curNode.prev;
 		}
