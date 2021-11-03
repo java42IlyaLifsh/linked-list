@@ -115,28 +115,84 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return isValidIndex(index) ? removeNode(getNode(index)) : null;
 	}
 
 	@Override
 	public int indexOf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return 0;
+		Node<T> current = head;
+		int res = -1;
+		for(int i = 0; i < size; i++) {
+			if (predicate.test(current.obj)) {
+				res = i;
+				break;
+			}
+			current = current.next;
+		}
+		
+		return res;
 	}
 
 	@Override
 	public int lastIndexOf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = -1;
+		Node<T> current = tail;
+		for(int i = size - 1; i >=0; i--) {
+			if (predicate.test(current.obj)) {
+				res = i;
+				break;
+			}
+			current = current.prev;
+		}
+		return res;
 	}
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
-		// TODO Auto-generated method stub
-		return false;
+		int oldSize = size;
+		Node<T> current = head;
+		while(current != null) {
+			if (predicate.test(current.obj)) {
+				removeNode(current);
+			}
+			current = current.next;
+		}
+		return oldSize > size;
 	}
 
+	private T removeNode(Node<T> current) {
+		if (head == tail) {
+			head = tail = null;
+		} else if (current == head) {
+			removeHead();
+		} else if (current == tail) {
+			removeTail();
+		} else {
+			removeMiddle(current);
+		}
+		size--;
+		return current.obj;
+		
+	}
+	private void removeMiddle(Node<T> current) {
+		Node<T> beforeRemoved = current.prev;
+		Node<T> afterRemoved = current.next;
+		beforeRemoved.next = afterRemoved;
+		afterRemoved.prev = beforeRemoved;
+		
+	}
+	private void removeTail() {
+		tail = tail.prev;
+		tail.next = null;
+		
+		
+	}
+	private void removeHead() {
+		head = head.next;
+		head.prev = null;
+		
+	}
 	@Override
 	public void sort(Comparator<T> comp) {
 		T[] array = listToArray();
@@ -145,16 +201,27 @@ public class LinkedList<T> implements List<T> {
 		
 
 	}
+	@SuppressWarnings("unchecked")
 	private T[] listToArray() {
-		//TODO
+		
 		//creates array of T objects
 		//passes over whole list and fills the array
-		//sorting filled array
-		return null;
+		T[] res = (T[]) new Object[size];
+		Node<T> current = head;
+		for(int i = 0; i < size; i++) {
+			res[i] = current.obj;
+			current = current.next;
+		}
+		return res;
 	}
 	private void fillListFromArray(T[] array) {
-		//TODO
+		
 		//passes over whole list and fills elements from index=0 to index=size - 1 
+		Node<T> current = head;
+		for(int i = 0; i < array.length; i++) {
+			current.obj = array[i];
+			current = current.next;
+		}
 	}
 
 }
