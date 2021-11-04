@@ -231,5 +231,15 @@ public class LinkedList<T> implements List<T> {
 			current = current.next;
 		}
 	}
+	@Override
+	public int sortedSearch(T pattern, Comparator<T> comp) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
