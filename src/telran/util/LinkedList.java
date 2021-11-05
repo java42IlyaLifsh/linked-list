@@ -233,31 +233,30 @@ public class LinkedList<T> implements List<T> {
 	}
 	@Override
 	public int sortedSearch(T pattern, Comparator<T> comp) {
-		Node<T> current = head;
-
-		int ind=0;
-		int res=0;
-		while (current != tail) {
-			int resComp = comp.compare(pattern, current.obj);
+		Node<T> currentNode = head;
+		int resIndex = 0;
+		while(currentNode != null) {
+			int resComp = comp.compare(pattern, currentNode.obj);
 			if (resComp == 0) {
-				res=ind;
 				break;
-			}
-			if (resComp <0) {
-				res = (-1 * ind) - 1;
+			} else if (resComp > 0) {
+				resIndex++;
+				currentNode = currentNode.next;
+			} else if(resComp<0) {
+				resIndex = -1*resIndex - 1;
 				break;
-			}
-			if (resComp >0) {
-				current = current.next;
-				ind++;
 			}
 		}
+		if(currentNode==null) {
+			resIndex = -1*size -1;
+		}
+		return resIndex;
+		}
 		
-		return res;
+			
 		
 		
-		
-	}
+	
 	@Override
 	public void clear() {
 		size=0;
