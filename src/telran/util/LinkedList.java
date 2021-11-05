@@ -243,6 +243,8 @@ public class LinkedList<T> implements List<T> {
 				resIndex++;
 				currentNode = currentNode.next;
 			} else if(resComp<0) {
+				// V.R.-1*resIndex is exactly -resIndex.
+				// Don't use -1*X to get -X. 
 				resIndex = -1*resIndex - 1;
 				break;
 			}
@@ -260,6 +262,13 @@ public class LinkedList<T> implements List<T> {
 	@Override
 	public void clear() {
 		size=0;
+		/* V.R. 
+		 * It is impossible to assign value (even it is null) to a data member
+		 * (nex or prev) of null object (head or next). It is completely
+		 * enough to writhe the following
+		 * head = tail = null;
+		 * 
+		 */
 		head = head.next= head.prev = tail = tail.prev= tail.next = null;
 		
 	}
