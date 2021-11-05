@@ -1,5 +1,5 @@
 package telran.util;
-
+//HW_10 IlyaL
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -233,12 +233,35 @@ public class LinkedList<T> implements List<T> {
 	}
 	@Override
 	public int sortedSearch(T pattern, Comparator<T> comp) {
-		// TODO Auto-generated method stub
-		return 0;
+		Node<T> current = head;
+
+		int ind=0;
+		int res=0;
+		while (current != tail) {
+			int resComp = comp.compare(pattern, current.obj);
+			if (resComp == 0) {
+				res=ind;
+				break;
+			}
+			if (resComp <0) {
+				res = (-1 * ind) - 1;
+				break;
+			}
+			if (resComp >0) {
+				current = current.next;
+				ind++;
+			}
+		}
+		
+		return res;
+		
+		
+		
 	}
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		size=0;
+		head = head.next= head.prev = tail = tail.prev= tail.next = null;
 		
 	}
 
