@@ -260,6 +260,7 @@ public class LinkedList<T> implements List<T> {
 	@Override
 	public void clear() {
 		size=0;
+		//[YG] on this step head=tail=null would be enough with no so long statement
 		head = head.next= head.prev = tail = tail.prev= tail.next = null;
 		
 	}
