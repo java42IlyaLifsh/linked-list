@@ -21,6 +21,7 @@ public class LinkedList<T> implements List<T> {
 
 	private Node<T> head; // reference to the first element
 	private Node<T> tail; // reference to the last element
+	// V.R. Well done
 	private class LinkedListIterator implements Iterator<T> {
 		Node<T> current = head;
 		@Override
