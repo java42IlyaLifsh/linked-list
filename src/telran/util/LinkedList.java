@@ -39,10 +39,15 @@ public class LinkedList<T> implements List<T> {
 		}
 		@Override
 		public void remove() {
-			//TODO 
+			 
 			//removes element that has been returned by the last next call
 			//that is previous of the current. But if current is null, then tail
 			//should be removed
+			if (current == null) {
+				removeNode(tail);
+			} else {
+				removeNode(current.prev);
+			}
 			
 		}
 		
@@ -184,9 +189,14 @@ public class LinkedList<T> implements List<T> {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		//O[N]
-		//TODO write removeIf implementation based on iterator 
-		//To apply items a., b., c. in the slide #18 with iterator.remove()
-		return false;
+		Iterator<T> it = iterator();
+		int oldSize = size;
+		while(it.hasNext()) {
+			if (predicate.test(it.next())) {
+				it.remove();
+			}
+		}
+		return oldSize > size;
 	}
 
 	private T removeNode(Node<T> current) {
