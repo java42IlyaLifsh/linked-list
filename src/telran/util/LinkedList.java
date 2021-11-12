@@ -272,7 +272,7 @@ public class LinkedList<T> extends AbstractList<T> {
 			}
 			current = current.next;
 		}
-		return res;
+		return res; 
 	}
 	@Override
 	public void clear() {
